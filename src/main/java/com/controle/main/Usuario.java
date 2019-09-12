@@ -60,7 +60,7 @@ public class Usuario extends JFrame {
 
 	
 	public Usuario() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\3-Documentos\\eclipse\\workspace\\com.controle\\Imagens\\Usuario2.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Imagens\\Usuario2.png"));
 		initComponents();
 		
 		createEvents();

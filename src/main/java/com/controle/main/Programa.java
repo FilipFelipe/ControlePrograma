@@ -97,7 +97,7 @@ protected void pegarDadosProgramaFromTabela(ProgramaM programa) {
 		}
 
 	public Programa() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\3-Documentos\\eclipse\\workspace\\com.controle\\Imagens\\programashow.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Imagens\\programashow.png"));
 		setTitle("Programas Cadastrados ");
 		setResizable(false);
 		
@@ -108,7 +108,7 @@ protected void pegarDadosProgramaFromTabela(ProgramaM programa) {
 		setContentPane(contentPane);
 		
 		JButton btnSalvar = new JButton("Cadastrar");
-		btnSalvar.setIcon(new ImageIcon("D:\\3-Documentos\\eclipse\\workspace\\com.controle\\Imagens\\programadd.png"));
+		btnSalvar.setIcon(new ImageIcon(".\\Imagens\\programadd.png"));
 		btnSalvar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnSalvar.setBounds(43, 286, 179, 64);
 		btnSalvar.addActionListener(new ActionListener() {
@@ -170,7 +170,7 @@ protected void pegarDadosProgramaFromTabela(ProgramaM programa) {
 		contentPane.add(status_txt);
 		JButton btnatt = new JButton("Atualizar");
 		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.setIcon(new ImageIcon("D:\\3-Documentos\\eclipse\\workspace\\com.controle\\Imagens\\programremove.png"));
+		btnExcluir.setIcon(new ImageIcon(".\\Imagens\\programremove.png"));
 		btnExcluir.setEnabled(false);
 		btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnExcluir.addActionListener(new ActionListener() {
@@ -192,7 +192,7 @@ protected void pegarDadosProgramaFromTabela(ProgramaM programa) {
 		contentPane.add(btnExcluir);
 		
 		
-		btnatt.setIcon(new ImageIcon("D:\\3-Documentos\\eclipse\\workspace\\com.controle\\Imagens\\attprogram.png"));
+		btnatt.setIcon(new ImageIcon(".\\Imagens\\attprogram.png"));
 		btnatt.setVisible(false);
 		btnatt.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnatt.addActionListener(new ActionListener() {
@@ -211,7 +211,7 @@ protected void pegarDadosProgramaFromTabela(ProgramaM programa) {
 		contentPane.add(btnatt);
 		
 		JButton btnSair = new JButton("Sair");
-		btnSair.setIcon(new ImageIcon("D:\\3-Documentos\\eclipse\\workspace\\com.controle\\Imagens\\sair.png"));
+		btnSair.setIcon(new ImageIcon(".\\Imagens\\sair.png"));
 		btnSair.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -248,7 +248,7 @@ protected void pegarDadosProgramaFromTabela(ProgramaM programa) {
 		id_txt.setColumns(10);
 		
 		JButton btnNewButton_1 = new JButton("");
-		btnNewButton_1.setIcon(new ImageIcon("D:\\3-Documentos\\eclipse\\workspace\\com.controle\\Imagens\\buscar.png"));
+		btnNewButton_1.setIcon(new ImageIcon(".\\Imagens\\buscar.png"));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (id_txt.getText().equals("")) {
@@ -280,7 +280,7 @@ protected void pegarDadosProgramaFromTabela(ProgramaM programa) {
 				Tabela.setVisible(true);  
 			}
 		});
-		btnVisualizarProgramas.setIcon(new ImageIcon("D:\\3-Documentos\\eclipse\\workspace\\com.controle\\Imagens\\programashow.png"));
+		btnVisualizarProgramas.setIcon(new ImageIcon(".\\Imagens\\programashow.png"));
 		btnVisualizarProgramas.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnVisualizarProgramas.setBounds(440, 286, 167, 64);
 		contentPane.add(btnVisualizarProgramas);

@@ -48,7 +48,7 @@ public class Main extends JFrame {
 	 */
 	public Main() {
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage("Imagens\\IconeS.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Imagens\\IconeS.png"));
 		setTitle("Menu do Gerenciador de Aplicativos  v0.12 - Filip Junio Felipe - P: 1760319");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 685, 279);
