@@ -10,6 +10,8 @@ Mysql / Maven / Hibernate
 - JavaSE: 1.8
 
 ## Configurações Iniciais
+/src/main/java/META-INF/`persistence.xml`
+
 Mysql database `controle`
 Mysql User `root`
 Mysql Pass ` `
