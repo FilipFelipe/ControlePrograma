@@ -12,9 +12,9 @@ Mysql / Maven / Hibernate
 ## Configurações Iniciais
 /src/main/java/META-INF/`persistence.xml`
 
-Mysql database `controle`
-Mysql User `root`
-Mysql Pass ` `
+- Mysql database `controle`
+- Mysql User `root`
+- Mysql Pass ` `
 
 ```kotlin
  <!--  Ip do Banco -->
