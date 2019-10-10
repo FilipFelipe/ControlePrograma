@@ -1,7 +1,9 @@
 # ControlePrograma
-IFSP Birigui - Engenharia de Computação 
-Programa desenvolvido na disciplina de programação orientada a eventos | 
-Mysql / Maven / Hibernate 
+- IFSP Birigui - Engenharia de Computação 
+
+- Programa desenvolvido na disciplina de programação orientada a eventos 
+
+| Mysql / Maven / Hibernate |
 
 
 ## Requisitos
