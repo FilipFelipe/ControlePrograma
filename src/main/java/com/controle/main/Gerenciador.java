@@ -44,22 +44,22 @@ public class Gerenciador extends JFrame {
 		if (op == 1) {
 			cliente.setNome(nome_txt.getText());
 			cliente.setBairro(bairro_txt.getText());
-			cliente.setCep(cep_txt.getText());
-			cliente.setCidade(cidade_txt.getText());
-			cliente.setNumero(numero_txt.getText());
-			cliente.setTelefone(telefone_txt.getText());
-			cliente.setSenha(senha_txt.getText());
+			//cliente.setCep(cep_txt.getText());
+			//cliente.setCidade(cidade_txt.getText());
+			//cliente.setNumero(numero_txt.getText());
+			//cliente.setTelefone(telefone_txt.getText());
+			//cliente.setSenha(senha_txt.getText());
 	        return cliente;		
 		}
 		else {
 			cliente.setId(Long.parseLong(id_txt.getText())); // converte para long
 			cliente.setNome(nome_txt.getText());
 			cliente.setBairro(bairro_txt.getText());
-			cliente.setCep(cep_txt.getText());
-			cliente.setCidade(cidade_txt.getText());
-			cliente.setNumero(numero_txt.getText());
-			cliente.setTelefone(telefone_txt.getText());
-			cliente.setSenha(senha_txt.getText());
+			//cliente.setCep(cep_txt.getText());
+			//cliente.setCidade(cidade_txt.getText());
+			//cliente.setNumero(numero_txt.getText());
+			//cliente.setTelefone(telefone_txt.getText());
+			//cliente.setSenha(senha_txt.getText());
 	        return cliente;	
 		}
 		
@@ -70,10 +70,10 @@ public class Gerenciador extends JFrame {
 		id_txt.setText(Long.toString(cliente.getId()));
 		nome_txt.setText(cliente.getNome());
 		bairro_txt.setText(cliente.getBairro());
-		cep_txt.setText(cliente.getCep());
-		cidade_txt.setText(cliente.getCidade());
-		numero_txt.setText(cliente.getNumero());
-		telefone_txt.setText(cliente.getTelefone());
+		//cep_txt.setText(cliente.getCep());
+		//cidade_txt.setText(cliente.getCidade());
+		//numero_txt.setText(cliente.getNumero());
+		//telefone_txt.setText(cliente.getTelefone());
 	}
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

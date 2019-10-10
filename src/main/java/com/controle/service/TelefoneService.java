@@ -4,28 +4,27 @@ import java.util.List;
 import javax.persistence.EntityTransaction;
 import javax.swing.JOptionPane;
 
-
-import com.controle.model.UsuarioM;
-import com.controle.repository.UsuarioRepository;
-public class UsuarioService extends ConexaoBancoService {
+import com.controle.model.TelefoneM;
+import com.controle.repository.TelefoneRepository;
+public class TelefoneService<telefoneRepository> extends ConexaoBancoService {
 	
-	private UsuarioRepository clienteRepository;
+	private TelefoneRepository telefoneRepository;
 	
 	private static Integer ERRO_INCLUSAO = 1;
 	private static Integer ERRO_ALTERACAO = 2;
 	private static Integer ERRO_EXCLUSAO = 3;
 	private static Integer SUCESSO_TRANSACAO = 0;
 	
-	public UsuarioService() {
-		clienteRepository = new UsuarioRepository(getEntityManager());
+	public TelefoneService() {
+		telefoneRepository = new TelefoneRepository(getEntityManager());
 	}
 	
 		
-	public Integer salvarCliente(UsuarioM usuario) {
+	public Integer salvarTelefone(TelefoneM telefone) {
 		EntityTransaction transacao = this.getEntityManager().getTransaction();
 		try {
 			transacao.begin();
-			clienteRepository.save(usuario);
+			telefoneRepository.save(telefone);
 			
 			
 			transacao.commit();
@@ -43,11 +42,11 @@ public class UsuarioService extends ConexaoBancoService {
 	}
 	
 	
-	public Integer alterarCLiente(UsuarioM cliente) {
+	public Integer alterarTelefone(TelefoneM telefone) {
 		EntityTransaction transacao = this.getEntityManager().getTransaction();
 		try {
 			transacao.begin();
-			clienteRepository.update(cliente);
+			telefoneRepository.update(telefone);
 			transacao.commit();
 		} catch(Throwable e) {
 			e.printStackTrace();
@@ -63,11 +62,11 @@ public class UsuarioService extends ConexaoBancoService {
 	}
 	
 	
-	public Integer excluirCliente(UsuarioM cliente) {
+	public Integer excluirCliente(TelefoneM telefone) {
 		EntityTransaction transacao = this.getEntityManager().getTransaction(); 
 	      try {
 	    	  transacao.begin();	
-			clienteRepository.remove(cliente);
+			telefoneRepository.remove(telefone);
 			transacao.commit();
 		} catch(Throwable e) {
 			e.printStackTrace();
@@ -81,11 +80,11 @@ public class UsuarioService extends ConexaoBancoService {
 		}
 		return SUCESSO_TRANSACAO;
 	}
-	public Integer listarcliente(UsuarioM cliente) {
+	public Integer listarcliente(TelefoneM telefone) {
 		EntityTransaction transacao = this.getEntityManager().getTransaction();
 		try {
 			transacao.begin();
-			clienteRepository.remove(cliente);
+			telefoneRepository.remove(telefone);
 			transacao.commit();
 		} catch(Throwable e) {
 			e.printStackTrace();
@@ -101,27 +100,17 @@ public class UsuarioService extends ConexaoBancoService {
 	}
 	
 	
-	public UsuarioM consultarCliente(Long id) {
-		UsuarioM cliente=null;
+	public TelefoneM consultarTelefone(Long id) {
+		TelefoneM telefone=null;
 	try {
-		cliente = clienteRepository.findById(id);
-        	JOptionPane.showMessageDialog(null, "Usuário: " + cliente.getNome() + " encontrado" );		
+		telefone = telefoneRepository.findById(id);
+        		
 	} catch(Throwable e) {
 		JOptionPane.showMessageDialog(null, "Usuário não cadastrado! Erro: " + e);
 		}
-		return cliente;
-	}
-	public UsuarioM consultarSenha(Long id) {
-	
-		return clienteRepository.findById(id);
-	}
-	public List<UsuarioM> listarTodosClientes(){
-		return clienteRepository.findAll(UsuarioM.class);
+		return telefone;
 	}
 
-	public Integer calcularTotalRegistros() {
-		return clienteRepository.calcularTotalRegistros(UsuarioM.class);
-	}
 	
 	
 }

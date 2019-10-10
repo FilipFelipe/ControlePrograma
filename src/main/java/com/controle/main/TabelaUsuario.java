@@ -15,7 +15,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import com.controle.model.UsuarioM;
-import com.controle.model.TabelaUsuarioModel;
+import com.controle.model.TabelaUsuarioM;
 import com.controle.service.UsuarioService;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -35,13 +35,12 @@ public class TabelaUsuario extends JFrame {
 	private static final int BAIRRO    = 2;
 	private static final int CIDADE    = 3;
 	private static final int ENDERECO  = 4;
-	private static final int TELEFONE  = 5;
-	private static final int CEP       = 6;
-	private static final int NUMERO    = 7;
-	private static final int TIPO    = 8;
+	private static final int CEP       = 5;
+	private static final int NUMERO    = 6;
+	private static final int TIPO    = 7;
 	
 	
-    private TabelaUsuarioModel tabelaClienteModel;
+    private TabelaUsuarioM tabelaClienteModel;
     private JButton btnAlterar;
     
 	
@@ -147,7 +146,7 @@ public class TabelaUsuario extends JFrame {
 
 	public void loadDataClienteFromTable() {
 		
-		tabelaClienteModel = new TabelaUsuarioModel();
+		tabelaClienteModel = new TabelaUsuarioM();
 		tabelaClienteModel.setListaClientes(listarTodosClientes());
 		tabelaUsuario.setModel(tabelaClienteModel);
 
@@ -162,7 +161,6 @@ public class TabelaUsuario extends JFrame {
 		tabelaUsuario.getColumnModel().getColumn(BAIRRO).setWidth(50);
 		tabelaUsuario.getColumnModel().getColumn(CIDADE).setWidth(100);
 		tabelaUsuario.getColumnModel().getColumn(CEP).setWidth(20);
-		tabelaUsuario.getColumnModel().getColumn(TELEFONE).setWidth(20);
 		tabelaUsuario.getColumnModel().getColumn(NUMERO).setWidth(5);
 		tabelaUsuario.getColumnModel().getColumn(TIPO).setWidth(5);
 		setLocationRelativeTo(null);

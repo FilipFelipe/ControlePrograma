@@ -15,7 +15,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import com.controle.model.ProgramaM;
-import com.controle.model.TabelaProgramaModel;
+import com.controle.model.TabelaProgramaM;
 import com.controle.service.ProgramaService;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -38,7 +38,7 @@ public class TabelaPrograma extends JFrame {
 
 	
 	
-    private TabelaProgramaModel tabelaProgramaModel;
+    private TabelaProgramaM tabelaProgramaModel;
     private JButton btnAlterar;
     
 	
@@ -145,7 +145,7 @@ public class TabelaPrograma extends JFrame {
 
 	public void loadDataProgramaFromTable() {
 		
-		tabelaProgramaModel = new TabelaProgramaModel();
+		tabelaProgramaModel = new TabelaProgramaM();
 		tabelaProgramaModel.setListaPrograma(listarTodosPrograma());
 		tabelaPrograma.setModel(tabelaProgramaModel);
 

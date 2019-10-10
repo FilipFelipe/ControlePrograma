@@ -3,6 +3,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,7 +16,9 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 import com.controle.model.UsuarioM;
-import com.controle.model.TabelaUsuarioModel;
+import com.controle.model.TabelaUsuarioM;
+import com.controle.model.TelefoneM;
+import com.controle.service.TelefoneService;
 import com.controle.service.UsuarioService;
 import java.awt.EventQueue;
 import javax.swing.ImageIcon;
@@ -31,16 +35,15 @@ public class Usuario extends JFrame {
 	private JTextField endereco_txt;
 	private JTextField bairro_txt;
 	private JTextField cidade_txt;
-	private JTextField telefone_txt;
 	private JTextField cep_txt;
 	private JTextField numero_txt;
 	private JButton btnSalvar;
 	private JButton btnExcluir;
 	private JButton btnCancelar;
 	private JTextField id_txt;
-	private JComboBox tipo_txt;
+	private JComboBox<?> tipo_txt;
 	private JTable tabelaUsuario;
-	private TabelaUsuarioModel tabelaUsuarioModel;
+	private TabelaUsuarioM tabelaUsuarioModel;
 	private int linhaSelecionada;
 	private int acao;
 	private JTextField tipo1_txt;
@@ -54,7 +57,9 @@ public class Usuario extends JFrame {
 	  UIManager.setLookAndFeel(laf.getClassName()); } else { System.out.println();
 	  }
 	  
-	  } Usuario frame = new Usuario(); frame.setVisible(true); } catch
+	  } Usuario frame = new Usuario();
+	  frame.setVisible(true);
+	  } catch
 	  (Exception e) { e.printStackTrace(); } } }); }
 	 
 
@@ -75,10 +80,22 @@ public class Usuario extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				UsuarioService usuarioService = new UsuarioService();
 				UsuarioM usuario = pegarDadosClienteFromTela(1);
+				TelefoneService telefoneService = new TelefoneService();
 				//usuarioService.alterarCLiente(usuario);
 				usuarioService.salvarCliente(usuario);
+			
 				limpartela();
-				JOptionPane.showMessageDialog(null, "Usuário " + usuario.getNome() + " foi cadastrado com sucesso!");
+				
+				int Confirm = JOptionPane.showConfirmDialog(null,"O usuário " + usuario.getNome() + " foi cadastrado com sucesso!\n Deseja cadastrar um número de telefone para "+ usuario.getNome()+ " ?","Adicionar telefone?", JOptionPane.YES_NO_OPTION);
+			    if (Confirm == JOptionPane.YES_OPTION) {
+			    	
+					Telefone tel = new Telefone(usuario); 
+					tel.setVisible(true);  
+				
+			    } else if (Confirm == JOptionPane.NO_OPTION){
+			    	
+
+			    }	
 			}
 		});
 
@@ -100,6 +117,7 @@ public class Usuario extends JFrame {
 			}
 		});
 		
+		
 	}
 
 	protected void limpartela() {
@@ -110,7 +128,7 @@ public class Usuario extends JFrame {
 		cep_txt.setText("");
 		cidade_txt.setText("");
 		numero_txt.setText("");
-		telefone_txt.setText("");
+
 		senha_txt.setText("");
 		tipo1_txt.setText("");
 	}
@@ -118,33 +136,56 @@ public class Usuario extends JFrame {
 	@SuppressWarnings("deprecation")
 	protected UsuarioM pegarDadosClienteFromTela(int op) {
 		UsuarioM usuario = new UsuarioM();
-		if (op == 1) {
+		if (op == 1) {	// Novo Usuario
 			usuario.setNome(nome_txt.getText());
 			usuario.setBairro(bairro_txt.getText());
 			usuario.setCep(cep_txt.getText());
 			usuario.setCidade(cidade_txt.getText());
 			usuario.setNumero(numero_txt.getText());
-			usuario.setTelefone(telefone_txt.getText());
 			usuario.setSenha(senha_txt.getText());
 			usuario.setTipo(tipo1_txt.getText());
 			usuario.setEndereco(endereco_txt.getText());
 	        return usuario;		
 		}
 		else {
+		
+			// telefone 2 telefone2_txt e telefone 3 telefone3_txt 
 			usuario.setId(Long.parseLong(id_txt.getText())); // converte para long
 			usuario.setNome(nome_txt.getText());
 			usuario.setBairro(bairro_txt.getText());
 			usuario.setCep(cep_txt.getText());
 			usuario.setCidade(cidade_txt.getText());
 			usuario.setNumero(numero_txt.getText());
-			usuario.setTelefone(telefone_txt.getText());
 			usuario.setSenha(senha_txt.getText());
 			usuario.setTipo(tipo1_txt.getText());
 			usuario.setEndereco(endereco_txt.getText());
+			//usuario.getTelefones(salvartel());
+			
+			//usuario.setTelefones(telefone_txt.getText());
+			
 	        return usuario;	
 		}
 		
 	}
+	protected TelefoneM salvartel(UsuarioM usuario) {
+		TelefoneM tel = new TelefoneM();
+		TelefoneM tel2 = new TelefoneM();
+		List<UsuarioM> users = new ArrayList<UsuarioM>();
+		List<TelefoneM> telusers = new ArrayList<TelefoneM>();
+		users.add(usuario);
+		
+		tel.setNumeroTelefone("88888");
+		tel.setTipoTelefone("ramal");
+		tel2.setNumeroTelefone("999");
+		tel2.setTipoTelefone("casa");
+		
+		tel.setUsuario(usuario);
+		tel2.setUsuario(usuario);
+		telusers.add(tel);
+		telusers.add(tel2);
+		return tel;
+	}
+	
 	
 	protected void pegarDadosClienteFromTabela(UsuarioM usuario) {
 		
@@ -154,12 +195,11 @@ public class Usuario extends JFrame {
 		cep_txt.setText(usuario.getCep());
 		cidade_txt.setText(usuario.getCidade());
 		numero_txt.setText(usuario.getNumero());
-		telefone_txt.setText(usuario.getTelefone());
 		tipo1_txt.setText(usuario.getTipo());
 		endereco_txt.setText(usuario.getEndereco());
 		senha_txt.setText(usuario.getSenha());
 	}
-	
+
 	private void initComponents() {
 		setTitle("Controle de usuário  ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -187,7 +227,11 @@ public class Usuario extends JFrame {
 
 
 		endereco_txt.setColumns(10);
-		
+		JButton btntel = new JButton("Adicionar Telefone");
+		btntel.setBounds(610, 351, 178, 51);
+		contentPane.add(btntel);
+		btntel.setEnabled(false);
+		btntel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		JLabel lblBairro = new JLabel("Bairro :");
 		lblBairro.setFont(new Font("Dialog", Font.PLAIN, 23));
 		lblBairro.setBounds(153, 218, 74, 34);
@@ -206,22 +250,13 @@ public class Usuario extends JFrame {
 		cidade_txt.setBounds(245, 278, 522, 34);
 		cidade_txt.setColumns(10);
 		
-		JLabel lblTelefone = new JLabel("Telefone :");
-		lblTelefone.setFont(new Font("Dialog", Font.PLAIN, 23));
-		lblTelefone.setBounds(129, 338, 106, 34);
-		
-		telefone_txt = new JTextField();
-		telefone_txt.setFont(new Font("Dialog", Font.PLAIN, 23));
-		telefone_txt.setBounds(245, 338, 383, 34);
-		telefone_txt.setColumns(10);
-		
 		JLabel lblCep = new JLabel("Cep :");
 		lblCep.setFont(new Font("Dialog", Font.PLAIN, 23));
-		lblCep.setBounds(173, 398, 54, 34);
+		lblCep.setBounds(171, 356, 54, 34);
 		
 		cep_txt = new JTextField();
 		cep_txt.setFont(new Font("Dialog", Font.PLAIN, 23));
-		cep_txt.setBounds(245, 398, 304, 34);
+		cep_txt.setBounds(243, 356, 304, 34);
 		cep_txt.setColumns(10);
 		
 		JLabel lblNmero = new JLabel("Número:");
@@ -271,16 +306,15 @@ public class Usuario extends JFrame {
 		tipo1_txt = new JTextField();
 		tipo1_txt.setFont(new Font("Dialog", Font.PLAIN, 23));
 		tipo1_txt.setText("0");
-		tipo1_txt.setBounds(318, 458, 46, 34);
+		tipo1_txt.setBounds(314, 439, 46, 34);
 		tipo1_txt.setColumns(10);
 		contentPane.setLayout(null);
 		
 		JLabel lblTipoDeUsurio = new JLabel("Tipo de usuário :");
 		lblTipoDeUsurio.setFont(new Font("Dialog", Font.PLAIN, 23));
-		lblTipoDeUsurio.setBounds(135, 458, 173, 34);
+		lblTipoDeUsurio.setBounds(131, 439, 173, 34);
 		contentPane.add(lblTipoDeUsurio);
 		contentPane.add(lblCep);
-		contentPane.add(lblTelefone);
 		contentPane.add(lblCidade);
 		contentPane.add(lblBairro);
 		contentPane.add(lblNome);
@@ -291,7 +325,6 @@ public class Usuario extends JFrame {
 		contentPane.add(btnCancelar);
 		contentPane.add(tipo1_txt);
 		contentPane.add(nome_txt);
-		contentPane.add(telefone_txt);
 		contentPane.add(cep_txt);
 		contentPane.add(endereco_txt);
 		contentPane.add(cidade_txt);
@@ -303,23 +336,29 @@ public class Usuario extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Senha : ");
 		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 23));
-		lblNewLabel.setBounds(544, 458, 93, 34);
+		lblNewLabel.setBounds(540, 439, 93, 34);
 		contentPane.add(lblNewLabel);
 		
 		JButton btnatt = new JButton("Atualizar");
 		btnatt.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnatt.setIcon(new ImageIcon(".\\Imagens\\attuser.png"));
 		btnatt.setVisible(false);
-		btnatt.addActionListener(new ActionListener() {
+		btnatt.addActionListener(new ActionListener() { // BOTAO ATUALIZAR
 			public void actionPerformed(ActionEvent e) {
 				UsuarioService usuarioService = new UsuarioService();
+				TelefoneService telefoneService = new TelefoneService();
 				UsuarioM usuario = pegarDadosClienteFromTela(0);
+				
 				usuarioService.alterarCLiente(usuario);
+				TelefoneM tel = salvartel(usuario);
+				telefoneService.alterarTelefone(tel);
+				
 				limpartela();
 				JOptionPane.showMessageDialog(null, "Usuário " + usuario.getNome() + " foi atualizado com sucesso!");
 				btnSalvar.setVisible(true);
 				btnatt.setVisible(false);
 				btnExcluir.setEnabled(false);
+				btntel.setEnabled(false);
 			}
 		});
 		btnatt.setBounds(100, 550, 155, 64);
@@ -327,7 +366,7 @@ public class Usuario extends JFrame {
 		
 		btnbuscar = new JButton("");
 		btnbuscar.setIcon(new ImageIcon(".\\Imagens\\buscar.png"));
-		btnbuscar.addActionListener(new ActionListener() { // buscar
+		btnbuscar.addActionListener(new ActionListener() { // BOTÃO BUSCAR
 			public void actionPerformed(ActionEvent e) {
 				if (id_txt.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "O número de matrícula deve ser informado!!");
@@ -340,6 +379,7 @@ public class Usuario extends JFrame {
 					btnSalvar.setVisible(false);
 					btnExcluir.setEnabled(true);
 					btnatt.setVisible(true);
+					btntel.setEnabled(true);
 				}
 				
 				
@@ -356,7 +396,16 @@ public class Usuario extends JFrame {
 				pegarDadosClienteFromTabela(usuario);
 				btnSalvar.setVisible(false);
 				btnExcluir.setEnabled(true);
-				btnatt.setVisible(true); } 
+				btnatt.setVisible(true);
+				btntel.setEnabled(true);} 
+			}
+		});
+		
+		btntel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				UsuarioM usuario = pegarDadosClienteFromTela(0);
+				Telefone tel = new Telefone(usuario); 
+				tel.setVisible(true);  
 			}
 		});
 		btnbuscar.setBounds(358, 41, 70, 34);
@@ -364,15 +413,13 @@ public class Usuario extends JFrame {
 		
 		senha_txt = new JPasswordField();
 		senha_txt.setFont(new Font("Dialog", Font.PLAIN, 23));
-		senha_txt.setBounds(638, 458, 154, 34);
+		senha_txt.setBounds(634, 439, 154, 34);
 		contentPane.add(senha_txt);
 		
-		JComboBox tipo_txt = new JComboBox();
-		tipo_txt.setVisible(false);
-		tipo_txt.setModel(new DefaultComboBoxModel(new String[] {"0 - Desligado", "1 - Funcionário", "2 - Administrador"}));
-		tipo_txt.setBounds(1030, 470, 96, 19);
-		contentPane.add(tipo_txt);
+		
+		
 		setLocationRelativeTo(null);
+		
 	}
 
 	public JTable gettabelaUsuario() {
@@ -383,11 +430,11 @@ public class Usuario extends JFrame {
 		this.tabelaUsuario = tabelaUsuario;
 	}
 
-	public TabelaUsuarioModel gettabelaUsuarioModel() {
+	public TabelaUsuarioM gettabelaUsuarioModel() {
 		return tabelaUsuarioModel;
 	}
 
-	public void settabelaUsuarioModel(TabelaUsuarioModel tabelaUsuarioModel) {
+	public void settabelaUsuarioModel(TabelaUsuarioM tabelaUsuarioModel) {
 		this.tabelaUsuarioModel = tabelaUsuarioModel;
 	}
 

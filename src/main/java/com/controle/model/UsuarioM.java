@@ -1,10 +1,15 @@
 package com.controle.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,7 +22,7 @@ public class UsuarioM {
 	private String bairro;
 	private String cidade;
 	private String endereco;
-	private String telefone;
+	private List<TelefoneM> telefones;
 	private String cep;
 	private String numero;
 	private String senha;
@@ -28,12 +33,12 @@ public class UsuarioM {
 	}
 
 
-	public UsuarioM(Long id, String nome, String bairro, String endereco, String cidade, String telefone, String cep, String numero,String senha, String tipo) {
+	public UsuarioM(Long id, String nome, String bairro, String endereco, String cidade, List<TelefoneM> telefone, String cep, String numero,String senha, String tipo) {
 		this.id = id;
 		this.nome = nome;
 		this.bairro = bairro;
 		this.cidade = cidade;
-		this.telefone = telefone;
+		this.telefones = telefone;
 		this.cep = cep;
 		this.numero = numero;
 		this.senha = senha;
@@ -85,17 +90,18 @@ public class UsuarioM {
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
-	
-	
-	@Column(name = "USUARIO_TELEFONE", nullable = false, length = 15 )
-	public String getTelefone() {
-		return telefone;
+	@OneToMany(mappedBy = "usuario",targetEntity = TelefoneM.class, cascade =
+	CascadeType.ALL,fetch = FetchType.LAZY)
+	public List<TelefoneM> getTelefones() {
+		return telefones;
 	}
 
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+	public void setTelefones(List<TelefoneM>telefone) {
+			this.telefones = telefone;
 	}
+	
+	
 	
 	@Column(name = "USUARIO_CEP", nullable = false, length = 10 )
 	public String getCep() {
@@ -165,8 +171,7 @@ public class UsuarioM {
 
 	@Override
 	public String toString() {
-		return "Cliente [id=" + id + ", nome=" + nome + ", bairro=" + bairro + ", cidade=" + cidade + ", telefone="
-				+ telefone + ", cep=" + cep + ", numero=" + numero + ", tipo=" + tipo +"]";
+		return "Cliente [id=" + id + ", nome=" + nome + ", bairro=" + bairro + ", cidade=" + cidade + ", cep=" + cep + ", numero=" + numero + ", tipo=" + tipo +"]";
 	}
 
 	@Column(name = "USUARIO_ENDERECO", nullable = false, length = 50 )

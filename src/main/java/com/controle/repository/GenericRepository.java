@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 
@@ -39,7 +37,13 @@ public abstract class GenericRepository<T, ID extends Serializable> {
 	public T findById(ID id) {
 		return this.getEntityManager().find(persistenceClass, id);
 	}
-	
+	public Integer calcularTotalRegistros(Class<T> classe) {
+		
+    	Query query = this.getEntityManager()
+    			.createQuery("SELECT COUNT(p) FROM "+classe.getSimpleName()+" p");
+    	Long total = (Long) query.getSingleResult();
+    	return total.intValue();
+	}
 	
 	@SuppressWarnings("unchecked")
 	public List<T> findAll(Class<T> classe){

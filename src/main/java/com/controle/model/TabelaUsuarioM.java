@@ -5,13 +5,13 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-public class TabelaUsuarioModel extends AbstractTableModel{
+public class TabelaUsuarioM extends AbstractTableModel{
 
 	private static final long serialVersionUID = 6893553424676264421L;
 
 	private final String colunas[] = {"Matricula","Tipo","Nome",
 									   "Endereço","Número",
-									   "Bairro","CEP","Cidade","Telefone"};
+									   "Bairro","CEP","Cidade"};
 	
 	private List<UsuarioM> listaClientes;
 	
@@ -23,11 +23,11 @@ public class TabelaUsuarioModel extends AbstractTableModel{
 	private static final int BAIRRO   = 5;
 	private static final int CEP      = 6;
 	private static final int CIDADE   = 7;
-	private static final int TELEFONE = 8;
 
 
-	private static final int FEIJAO     = 9;
-	public TabelaUsuarioModel() {
+
+	
+	public TabelaUsuarioM() {
            listaClientes = new ArrayList<UsuarioM>(); 
 	}
 
@@ -87,8 +87,7 @@ public class TabelaUsuarioModel extends AbstractTableModel{
 			return cliente.getCidade();
 		case ENDERECO:
 			return cliente.getEndereco();
-		case TELEFONE:
-			return cliente.getTelefone();
+		
 		case CEP:
 			return cliente.getCep();
 		case NUMERO:
@@ -115,8 +114,7 @@ public class TabelaUsuarioModel extends AbstractTableModel{
 			return String.class;
 		case ENDERECO:
 			return String.class;
-		case TELEFONE:
-			return String.class;
+		
 		case CEP:
 			return String.class;
 		case NUMERO:
@@ -163,10 +161,7 @@ public class TabelaUsuarioModel extends AbstractTableModel{
 		return ENDERECO;
 	}
 
-	public static int getTelefone() {
-		return TELEFONE;
-	}
-
+	
 	public static int getCep() {
 		return CEP;
 	}

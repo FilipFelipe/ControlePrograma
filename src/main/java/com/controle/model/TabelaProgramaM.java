@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-public class TabelaProgramaModel extends AbstractTableModel{
+public class TabelaProgramaM extends AbstractTableModel{
 
 	private static final long serialVersionUID = 6893553424676264421L;
 
@@ -20,7 +20,7 @@ public class TabelaProgramaModel extends AbstractTableModel{
 	private static final int VERSAO   		= 4;
 
 	
-	public TabelaProgramaModel() {
+	public TabelaProgramaM() {
 		ListaPrograma = new ArrayList<ProgramaM>(); 
 	}
 
