@@ -2,18 +2,12 @@ package com.controle.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.ManyToAny;
 
 @Entity
 @Table(name = "TAB_GERENCIADOR")
@@ -24,25 +18,19 @@ public class GerenciadorM {
 	private String nome;
 	private String bairro;
 	private String cidade;
-	private List<TelefoneM> telefones;
 	private String cep;
 	private String numero;
-	private String senha;
-	private UsuarioM usuario;
-
 	public GerenciadorM() {
 	}
 
 
-	public GerenciadorM(Long id, String nome, String bairro, String cidade,List<TelefoneM> telefone, String cep, String numero,String senha) {
+	public GerenciadorM(Long id, String nome, String bairro, String cidade,List<TelefoneM> telefone, String cep, String numero,String senha, List<TelefoneM> telefones) {
 		this.id = id;
 		this.nome = nome;
 		this.bairro = bairro;
 		this.cidade = cidade;
-		this.telefones = telefones;
 		this.cep = cep;
 		this.numero = numero;
-		this.senha = senha;
 	}
 
 	@Id
@@ -85,7 +73,7 @@ public class GerenciadorM {
 
 	@Override
 	public String toString() {
-		return "Cliente [id=" + id + ", nome=" + nome + ", bairro=" + bairro + ", cidade=" + cidade + ", cep=" + cep + ", numero=" + numero + "]";
+		return "Gerenciador [id=" + id + ", nome=" + nome + ", bairro=" + bairro + ", cidade=" + cidade + ", cep=" + cep + ", numero=" + numero + "]";
 	}
 	
 	

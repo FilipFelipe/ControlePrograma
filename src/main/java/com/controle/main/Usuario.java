@@ -3,8 +3,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,24 +10,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 import com.controle.model.UsuarioM;
 import com.controle.model.TabelaUsuarioM;
-import com.controle.model.TelefoneM;
 import com.controle.service.TelefoneService;
 import com.controle.service.UsuarioService;
-import java.awt.EventQueue;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import java.awt.Font;
-import java.awt.Toolkit;
 
 public class Usuario extends JFrame {
 	private static final long serialVersionUID = -7666904947797883899L;
+	
 	private JPanel contentPane;
 	private JTextField nome_txt;
 	private JTextField endereco_txt;
@@ -40,41 +33,56 @@ public class Usuario extends JFrame {
 	private JButton btnSalvar;
 	private JButton btnExcluir;
 	private JButton btnCancelar;
+	private JButton btnatt;
 	private JTextField id_txt;
 	private JComboBox<?> tipo_txt;
 	private JTable tabelaUsuario;
+	
 	private TabelaUsuarioM tabelaUsuarioModel;
 	private int linhaSelecionada;
 	private int acao;
 	private JTextField tipo1_txt;
-	private JButton btnbuscar;
 	private JPasswordField senha_txt;
-	
-
-	 public static void main(String[] args) { EventQueue.invokeLater(new
-	 Runnable() { public void run() { try { for ( LookAndFeelInfo laf :
-	  UIManager.getInstalledLookAndFeels()) { if ("Nimbus".equals(laf.getName())){
-	  UIManager.setLookAndFeel(laf.getClassName()); } else { System.out.println();
-	  }
-	  
-	  } Usuario frame = new Usuario();
-	  frame.setVisible(true);
-	  } catch
-	  (Exception e) { e.printStackTrace(); } } }); }
-	 
+	private JButton btnatt_1;
 
 	
-	public Usuario() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Imagens\\Usuario2.png"));
-		initComponents();
-		
-		createEvents();
-		
-		
+	
+
+	public Usuario(JFrame frame, JTable tabelaUsuario,
+            TabelaUsuarioM tabelaUsuarioModel,
+            int linhaSelecionada,
+            int acao ) {
+
+			this.tabelaUsuario = tabelaUsuario;
+			this.tabelaUsuarioModel = tabelaUsuarioModel;
+			this.linhaSelecionada = linhaSelecionada;
+			this.acao = acao;
+			System.out.println(gettabelaUsuarioModel().getUsuario(getLinhaSelecionada()));
+			
+initComponents();
+
+createEvents();
+
+configurarAcao();
+}
+
+	protected void configurarAcao() {
+		if (getAcao() == 0) {     //incluir
+			btnExcluir.setEnabled(false);
+			btnatt_1.setVisible(false);
+		} else if ( getAcao() == 1 )  {   //alterar
+			btnSalvar.setVisible(false);
+			btnExcluir.setEnabled(false);
+			pegarDadosClienteFromTabela();
+		} else {  //excluir
+			pegarDadosClienteFromTabela();  
+			btnSalvar.setEnabled(false);
+		}
 	}
 
-
 	private void createEvents() {
+		
+		
 		
 		btnSalvar.addActionListener(new ActionListener() { //salvar
 			public void actionPerformed(ActionEvent arg0) {
@@ -128,7 +136,6 @@ public class Usuario extends JFrame {
 		cep_txt.setText("");
 		cidade_txt.setText("");
 		numero_txt.setText("");
-
 		senha_txt.setText("");
 		tipo1_txt.setText("");
 	}
@@ -167,28 +174,15 @@ public class Usuario extends JFrame {
 		}
 		
 	}
-	protected TelefoneM salvartel(UsuarioM usuario) {
-		TelefoneM tel = new TelefoneM();
-		TelefoneM tel2 = new TelefoneM();
-		List<UsuarioM> users = new ArrayList<UsuarioM>();
-		List<TelefoneM> telusers = new ArrayList<TelefoneM>();
-		users.add(usuario);
-		
-		tel.setNumeroTelefone("88888");
-		tel.setTipoTelefone("ramal");
-		tel2.setNumeroTelefone("999");
-		tel2.setTipoTelefone("casa");
-		
-		tel.setUsuario(usuario);
-		tel2.setUsuario(usuario);
-		telusers.add(tel);
-		telusers.add(tel2);
-		return tel;
-	}
+
 	
-	
-	protected void pegarDadosClienteFromTabela(UsuarioM usuario) {
+	protected void pegarDadosClienteFromTabela() {
 		
+		System.out.println(gettabelaUsuarioModel());
+		
+		System.out.println(gettabelaUsuarioModel().getUsuario(getLinhaSelecionada()));
+		UsuarioM usuario = gettabelaUsuarioModel().getUsuario(getLinhaSelecionada());
+		System.out.println(Long.toString(usuario.getId()));
 		id_txt.setText(Long.toString(usuario.getId()));
 		nome_txt.setText(usuario.getNome());
 		bairro_txt.setText(usuario.getBairro());
@@ -224,7 +218,8 @@ public class Usuario extends JFrame {
 		endereco_txt = new JTextField();
 		endereco_txt.setFont(new Font("Dialog", Font.PLAIN, 23));
 		endereco_txt.setBounds(245, 158, 445, 34);
-
+	
+		
 
 		endereco_txt.setColumns(10);
 		JButton btntel = new JButton("Adicionar Telefone");
@@ -235,7 +230,12 @@ public class Usuario extends JFrame {
 		JLabel lblBairro = new JLabel("Bairro :");
 		lblBairro.setFont(new Font("Dialog", Font.PLAIN, 23));
 		lblBairro.setBounds(153, 218, 74, 34);
-		
+		if ( getAcao() == 1 ) {
+			btntel.setEnabled(true);
+		}
+		else if( getAcao() == 0 ){
+			btntel.setEnabled(false);
+		}
 		bairro_txt = new JTextField();
 		bairro_txt.setFont(new Font("Dialog", Font.PLAIN, 23));
 		bairro_txt.setBounds(245, 218, 422, 34);
@@ -276,32 +276,22 @@ public class Usuario extends JFrame {
 		btnExcluir.setIcon(new ImageIcon(".\\Imagens\\delluser.png"));
 		btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnExcluir.setEnabled(false);
-		btnExcluir.setBounds(325, 550, 155, 64);
+		btnExcluir.setBounds(430, 550, 155, 64);
 		btnCancelar = new JButton("Sair");
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnCancelar.setIcon(new ImageIcon(".\\Imagens\\exit.png"));
-		btnCancelar.setBounds(825, 550, 155, 64);
+		btnCancelar.setBounds(743, 550, 155, 64);
 		
 		JLabel lblCdigo = new JLabel("Matrícula :");
 		lblCdigo.setFont(new Font("Dialog", Font.PLAIN, 23));
 		lblCdigo.setBounds(123, 42, 106, 30);
 		
 		id_txt = new JTextField();
+		id_txt.setEnabled(false);
 		id_txt.setFont(new Font("Dialog", Font.PLAIN, 23));
 		
 		id_txt.setBounds(245, 38, 100, 34);
 		id_txt.setColumns(10);
-		
-		JButton btnNewButton = new JButton("Mostrar Usuários");
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton.setIcon(new ImageIcon(".\\Imagens\\users.png"));
-		btnNewButton.setBounds(550, 550, 194, 64);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				TabelaUsuario Tabela = new TabelaUsuario(); 
-				Tabela.setVisible(true);  
-			}
-		});
 		
 		tipo1_txt = new JTextField();
 		tipo1_txt.setFont(new Font("Dialog", Font.PLAIN, 23));
@@ -332,60 +322,30 @@ public class Usuario extends JFrame {
 		contentPane.add(lblNmero);
 		contentPane.add(numero_txt);
 		contentPane.add(id_txt);
-		contentPane.add(btnNewButton);
 		
 		JLabel lblNewLabel = new JLabel("Senha : ");
 		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 23));
 		lblNewLabel.setBounds(540, 439, 93, 34);
 		contentPane.add(lblNewLabel);
 		
-		JButton btnatt = new JButton("Atualizar");
-		btnatt.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnatt.setIcon(new ImageIcon(".\\Imagens\\attuser.png"));
-		btnatt.setVisible(false);
-		btnatt.addActionListener(new ActionListener() { // BOTAO ATUALIZAR
+		btnatt_1 = new JButton("Atualizar");
+		btnatt_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnatt_1.setIcon(new ImageIcon(".\\Imagens\\attuser.png"));
+		btnatt_1.addActionListener(new ActionListener() { // BOTAO ATUALIZAR
 			public void actionPerformed(ActionEvent e) {
 				UsuarioService usuarioService = new UsuarioService();
-				TelefoneService telefoneService = new TelefoneService();
-				UsuarioM usuario = pegarDadosClienteFromTela(0);
 				
+				UsuarioM usuario = pegarDadosClienteFromTela(0);
 				usuarioService.alterarCLiente(usuario);
-				TelefoneM tel = salvartel(usuario);
-				telefoneService.alterarTelefone(tel);
+				
 				
 				limpartela();
 				JOptionPane.showMessageDialog(null, "Usuário " + usuario.getNome() + " foi atualizado com sucesso!");
-				btnSalvar.setVisible(true);
-				btnatt.setVisible(false);
-				btnExcluir.setEnabled(false);
-				btntel.setEnabled(false);
+				dispose();
 			}
 		});
-		btnatt.setBounds(100, 550, 155, 64);
-		contentPane.add(btnatt);
-		
-		btnbuscar = new JButton("");
-		btnbuscar.setIcon(new ImageIcon(".\\Imagens\\buscar.png"));
-		btnbuscar.addActionListener(new ActionListener() { // BOTÃO BUSCAR
-			public void actionPerformed(ActionEvent e) {
-				if (id_txt.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "O número de matrícula deve ser informado!!");
-					id_txt.requestFocus();
-				}else {
-					UsuarioService usuarioService = new UsuarioService();
-					UsuarioM usuario = pegarDadosClienteFromTela(0);
-					usuario = usuarioService.consultarCliente(Long.valueOf(usuario.getId()));
-					pegarDadosClienteFromTabela(usuario);
-					btnSalvar.setVisible(false);
-					btnExcluir.setEnabled(true);
-					btnatt.setVisible(true);
-					btntel.setEnabled(true);
-				}
-				
-				
-			}
-			
-		});
+		btnatt_1.setBounds(100, 550, 155, 64);
+		contentPane.add(btnatt_1);
 		id_txt.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -393,10 +353,10 @@ public class Usuario extends JFrame {
 				{ UsuarioService usuarioService = new UsuarioService();
 				UsuarioM usuario = pegarDadosClienteFromTela(0);
 				usuario = usuarioService.consultarCliente(Long.valueOf(usuario.getId()));
-				pegarDadosClienteFromTabela(usuario);
+				//pegarDadosClienteFromTabela(usuario);
 				btnSalvar.setVisible(false);
 				btnExcluir.setEnabled(true);
-				btnatt.setVisible(true);
+				btnatt_1.setVisible(true);
 				btntel.setEnabled(true);} 
 			}
 		});
@@ -408,9 +368,6 @@ public class Usuario extends JFrame {
 				tel.setVisible(true);  
 			}
 		});
-		btnbuscar.setBounds(358, 41, 70, 34);
-		contentPane.add(btnbuscar);
-		
 		senha_txt = new JPasswordField();
 		senha_txt.setFont(new Font("Dialog", Font.PLAIN, 23));
 		senha_txt.setBounds(634, 439, 154, 34);

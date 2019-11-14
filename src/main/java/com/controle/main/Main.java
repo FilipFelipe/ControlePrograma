@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.ProgressBarUI;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -15,13 +16,13 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JProgressBar;
 
 public class Main extends JFrame {
 
 	private static final long serialVersionUID = 5304272365760308901L;
 	
 	public JPanel contentPane;
-	private JTextField nome_txt;
 	private JTextField tipo_txt;
 	
 	public static void main(String[] args) {
@@ -56,17 +57,19 @@ public class Main extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
 		JButton btnNewButton = new JButton("Usuários");
 		btnNewButton.setIcon(new ImageIcon(".\\Imagens\\Usuario.png"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				Usuario usuario = new Usuario(); 
+				
+				TabelaUsuario tabela = new TabelaUsuario(); 
 				//usuario.usuario(tipo_txt.getText());
 				//dispose();
+			
 				
-				usuario.setVisible(true); 
+				tabela.setVisible(true); 
+			
 			}
 		});
 		btnNewButton.setBounds(48, 63, 173, 70);
@@ -76,8 +79,8 @@ public class Main extends JFrame {
 		btnProgramas.setIcon(new ImageIcon(".\\Imagens\\Programa.png"));
 		btnProgramas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Programa programa = new Programa(); 
-				programa.setVisible(true); 
+				TabelaPrograma Tabela = new TabelaPrograma(); 
+				Tabela.setVisible(true);  
 				//dispose();
 			}
 		});
@@ -112,13 +115,6 @@ public class Main extends JFrame {
 		lblFilipJunioFelipe.setBounds(550, 226, 94, 14);
 		contentPane.add(lblFilipJunioFelipe);
 		
-		nome_txt = new JTextField();
-		nome_txt.setBorder(new EmptyBorder(0, 0, 0, 0));
-		nome_txt.setEditable(false);
-		nome_txt.setBounds(12, 13, 173, 27);
-		contentPane.add(nome_txt);
-		nome_txt.setColumns(10);
-		
 		tipo_txt = new JTextField();
 		tipo_txt.setVisible(false);
 		tipo_txt.setText("tipo");
@@ -127,6 +123,8 @@ public class Main extends JFrame {
 		tipo_txt.setBorder(new EmptyBorder(0, 0, 0, 0));
 		tipo_txt.setBounds(652, 0, 27, 27);
 		contentPane.add(tipo_txt);
+		
+		
 		setLocationRelativeTo(null);
 	}
 
@@ -147,7 +145,7 @@ public void usuario(String nome,String tipo) {
 		status = ("Desligado");
 		Name = (nome + " | " + status);
 	}
-	nome_txt.setText(Name);
+	//nome_txt.setText(Name);
 	tipo_txt.setText(tipo);
 }
 }

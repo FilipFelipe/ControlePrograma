@@ -171,7 +171,7 @@ public class UsuarioM {
 
 	@Override
 	public String toString() {
-		return "Cliente [id=" + id + ", nome=" + nome + ", bairro=" + bairro + ", cidade=" + cidade + ", cep=" + cep + ", numero=" + numero + ", tipo=" + tipo +"]";
+		return "Usuario [id=" + id + ", nome=" + nome + ", bairro=" + bairro + ", cidade=" + cidade + ", cep=" + cep + ", numero=" + numero + ", tipo=" + tipo +"]";
 	}
 
 	@Column(name = "USUARIO_ENDERECO", nullable = false, length = 50 )

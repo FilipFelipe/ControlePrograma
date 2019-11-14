@@ -23,7 +23,7 @@ public class TabelaUsuarioM extends AbstractTableModel{
 	private static final int BAIRRO   = 5;
 	private static final int CEP      = 6;
 	private static final int CIDADE   = 7;
-
+	
 
 
 	
@@ -32,17 +32,17 @@ public class TabelaUsuarioM extends AbstractTableModel{
 	}
 
 	
-	public UsuarioM getCliente(int linhaIndex) {
-		return this.getListaClientes().get(linhaIndex-1);
+	public UsuarioM getUsuario(int linhaIndex) {
+		return this.getListaClientes().get(linhaIndex);
 	}
 	
-	public void addCliente(UsuarioM cliente) {
-		this.getListaClientes().add(cliente);
+	public void addCliente(UsuarioM  usuario) {
+		this.getListaClientes().add(usuario);
 		fireTableRowsInserted(getRowCount()-1, getRowCount()-1 );
 	}
 	
-	public void updateCliente(UsuarioM cliente, int linhaIndex) {
-		this.getListaClientes().set(linhaIndex, cliente);
+	public void updateCliente(UsuarioM  usuario, int linhaIndex) {
+		this.getListaClientes().set(linhaIndex, usuario);
 		fireTableRowsUpdated(linhaIndex, linhaIndex);
 	}
 	
@@ -74,29 +74,28 @@ public class TabelaUsuarioM extends AbstractTableModel{
 	@Override
 	public Object getValueAt(int linhaIndex, int colunaIndex) {
 		
-		UsuarioM cliente = this.getListaClientes().get(linhaIndex);
+		UsuarioM usuario = this.getListaClientes().get(linhaIndex);
 		
 		switch(colunaIndex) {
 		case ID:
-			return cliente.getId();
+			return usuario.getId();
 		case NOME:
-			return cliente.getNome();
+			return usuario.getNome();
 		case BAIRRO:
-			return cliente.getBairro();
+			return usuario.getBairro();
 		case CIDADE:
-			return cliente.getCidade();
+			return usuario.getCidade();
 		case ENDERECO:
-			return cliente.getEndereco();
-		
+			return usuario.getEndereco();
 		case CEP:
-			return cliente.getCep();
+			return usuario.getCep();
 		case NUMERO:
-			return cliente.getNumero();
+			return usuario.getNumero();
 		case TIPO:
-			return cliente.getTipo();
+			return usuario.getTipo();
 		
 		default:
-			return cliente;
+			return usuario;
 		
 		}
 	}
@@ -114,7 +113,6 @@ public class TabelaUsuarioM extends AbstractTableModel{
 			return String.class;
 		case ENDERECO:
 			return String.class;
-		
 		case CEP:
 			return String.class;
 		case NUMERO:
@@ -160,7 +158,6 @@ public class TabelaUsuarioM extends AbstractTableModel{
 	public static int getEndereco() {
 		return ENDERECO;
 	}
-
 	
 	public static int getCep() {
 		return CEP;

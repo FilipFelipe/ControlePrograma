@@ -3,8 +3,6 @@ package com.controle.service;
 import java.util.List;
 import javax.persistence.EntityTransaction;
 import javax.swing.JOptionPane;
-
-
 import com.controle.model.UsuarioM;
 import com.controle.repository.UsuarioRepository;
 public class UsuarioService extends ConexaoBancoService {
@@ -43,11 +41,11 @@ public class UsuarioService extends ConexaoBancoService {
 	}
 	
 	
-	public Integer alterarCLiente(UsuarioM cliente) {
+	public Integer alterarCLiente(UsuarioM usuario) {
 		EntityTransaction transacao = this.getEntityManager().getTransaction();
 		try {
 			transacao.begin();
-			clienteRepository.update(cliente);
+			clienteRepository.update(usuario);
 			transacao.commit();
 		} catch(Throwable e) {
 			e.printStackTrace();
@@ -63,11 +61,11 @@ public class UsuarioService extends ConexaoBancoService {
 	}
 	
 	
-	public Integer excluirCliente(UsuarioM cliente) {
+	public Integer excluirCliente(UsuarioM usuario) {
 		EntityTransaction transacao = this.getEntityManager().getTransaction(); 
 	      try {
 	    	  transacao.begin();	
-			clienteRepository.remove(cliente);
+			clienteRepository.remove(usuario);
 			transacao.commit();
 		} catch(Throwable e) {
 			e.printStackTrace();
@@ -81,11 +79,11 @@ public class UsuarioService extends ConexaoBancoService {
 		}
 		return SUCESSO_TRANSACAO;
 	}
-	public Integer listarcliente(UsuarioM cliente) {
+	public Integer listarcliente(UsuarioM usuario) {
 		EntityTransaction transacao = this.getEntityManager().getTransaction();
 		try {
 			transacao.begin();
-			clienteRepository.remove(cliente);
+			clienteRepository.remove(usuario);
 			transacao.commit();
 		} catch(Throwable e) {
 			e.printStackTrace();
@@ -102,14 +100,14 @@ public class UsuarioService extends ConexaoBancoService {
 	
 	
 	public UsuarioM consultarCliente(Long id) {
-		UsuarioM cliente=null;
+		UsuarioM usuario=null;
 	try {
-		cliente = clienteRepository.findById(id);
-        	JOptionPane.showMessageDialog(null, "Usuário: " + cliente.getNome() + " encontrado" );		
+		usuario = clienteRepository.findById(id);
+        	JOptionPane.showMessageDialog(null, "Usuário: " + usuario.getNome() + " encontrado" );		
 	} catch(Throwable e) {
 		JOptionPane.showMessageDialog(null, "Usuário não cadastrado! Erro: " + e);
 		}
-		return cliente;
+		return usuario;
 	}
 	public UsuarioM consultarSenha(Long id) {
 	
@@ -123,5 +121,9 @@ public class UsuarioService extends ConexaoBancoService {
 		return clienteRepository.calcularTotalRegistros(UsuarioM.class);
 	}
 	
+	
+	public List<UsuarioM> listarTodosRegistrosComPaginacao(Integer primeiro, Integer tamanhoPagina){
+	    return clienteRepository.listarTodosRegistrosComPaginacao(primeiro, tamanhoPagina);
+	}
 	
 }

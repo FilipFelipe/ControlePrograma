@@ -1,14 +1,11 @@
 package com.controle.main;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import com.controle.model.GerenciadorM;
 import com.controle.service.GerenciadorService;
-
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -38,7 +35,6 @@ public class Gerenciador extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	@SuppressWarnings("deprecation")
 	protected GerenciadorM pegarDadosClienteFromTela(int op) {
 		GerenciadorM cliente = new GerenciadorM();
 		if (op == 1) {

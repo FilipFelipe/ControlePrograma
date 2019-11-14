@@ -1,6 +1,5 @@
 package com.controle.service;
 
-import java.util.List;
 import javax.persistence.EntityTransaction;
 import javax.swing.JOptionPane;
 

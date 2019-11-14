@@ -6,7 +6,6 @@ import javax.persistence.EntityTransaction;
 
 
 import com.controle.model.ProgramaM;
-import com.controle.model.UsuarioM;
 import com.controle.repository.ProgramaRepository;
 
 
@@ -90,5 +89,21 @@ public class ProgramaService extends ConexaoBancoService {
 	}
 	public List<ProgramaM> listarTodosProgramas(){
 		return ProgramaRepository.findAll(ProgramaM.class);
+	}
+	public ProgramaM consultarSenha(Long id) {
+		
+		return ProgramaRepository.findById(id);
+	}
+	public List<ProgramaM> listarTodosClientes(){
+		return ProgramaRepository.findAll(ProgramaM.class);
+	}
+
+	public Integer calcularTotalRegistros() {
+		return ProgramaRepository.calcularTotalRegistros(ProgramaM.class);
+	}
+	
+	
+	public List<ProgramaM> listarTodosRegistrosComPaginacao(Integer primeiro, Integer tamanhoPagina){
+	    return ProgramaRepository.listarTodosRegistrosComPaginacao(primeiro, tamanhoPagina);
 	}
 }

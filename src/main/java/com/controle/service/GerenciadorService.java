@@ -32,11 +32,11 @@ public class GerenciadorService extends ConexaoBancoService {
 	        return emf.createEntityManager();
 	    }
 	}
-	public Integer salvarGerenciador(GerenciadorM cliente) {
+	public Integer salvarGerenciador(GerenciadorM gerenciador) {
 		EntityTransaction transacao = this.getEntityManager().getTransaction();
 		try {
 			transacao.begin();
-			GerenciadorRepository.save(cliente);
+			GerenciadorRepository.save(gerenciador);
 			transacao.commit();
 		}catch (Throwable e) {
 			e.printStackTrace();
@@ -52,11 +52,11 @@ public class GerenciadorService extends ConexaoBancoService {
 	}
 	
 
-	public Integer alterarGerenciador(GerenciadorM cliente) {
+	public Integer alterarGerenciador(GerenciadorM gerenciador) {
 		EntityTransaction transacao = this.getEntityManager().getTransaction();
 		try {
 			transacao.begin();
-			GerenciadorRepository.update(cliente);
+			GerenciadorRepository.update(gerenciador);
 			transacao.commit();
 		} catch(Throwable e) {
 			e.printStackTrace();
@@ -73,11 +73,11 @@ public class GerenciadorService extends ConexaoBancoService {
 	
 	
 	
-	public Integer listarcliente(GerenciadorM cliente) {
+	public Integer listarcliente(GerenciadorM gerenciador) {
 		EntityTransaction transacao = this.getEntityManager().getTransaction();
 		try {
 			transacao.begin();
-			GerenciadorRepository.remove(cliente);
+			GerenciadorRepository.remove(gerenciador);
 			transacao.commit();
 		} catch(Throwable e) {
 			e.printStackTrace();

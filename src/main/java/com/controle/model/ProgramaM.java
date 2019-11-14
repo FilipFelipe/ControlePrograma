@@ -83,7 +83,7 @@ public class ProgramaM {
 
 	@Override
 	public String toString() {
-		return "Cliente [id=" + id + ", nome=" + nome + ", versao=" + versao + ", permissao=" + permissao +", status=" + status + "]";
+		return "Programa [id=" + id + ", nome=" + nome + ", versao=" + versao + ", permissao=" + permissao +", status=" + status + "]";
 	}
 
 	@Column(name = "PROGRAMA_VERSAO", nullable = false, length = 15 )

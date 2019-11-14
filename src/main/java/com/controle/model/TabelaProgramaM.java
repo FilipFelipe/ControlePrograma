@@ -6,7 +6,7 @@ import javax.swing.table.AbstractTableModel;
 
 public class TabelaProgramaM extends AbstractTableModel{
 
-	private static final long serialVersionUID = 6893553424676264421L;
+	private static final long serialVersionUID = 6893553425576264421L;
 
 	private final String colunas[] = {"ID do Programa","Permissão","Nome",
 									   "Status","Versão"};
@@ -19,32 +19,31 @@ public class TabelaProgramaM extends AbstractTableModel{
 	private static final int STATUS 		= 3;
 	private static final int VERSAO   		= 4;
 
-	
 	public TabelaProgramaM() {
 		ListaPrograma = new ArrayList<ProgramaM>(); 
 	}
 
 	
 	public ProgramaM getPrograma(int linhaIndex) {
-		return this.getListaPrograma().get(linhaIndex-1);
+		return this.getListaPrograma().get(linhaIndex);
 	}
 	
-	public void addPrograma(ProgramaM programa) {
+	public void addCliente(ProgramaM  programa) {
 		this.getListaPrograma().add(programa);
 		fireTableRowsInserted(getRowCount()-1, getRowCount()-1 );
 	}
 	
-	public void updatePrograma(ProgramaM programa, int linhaIndex) {
+	public void updateCliente(ProgramaM  programa, int linhaIndex) {
 		this.getListaPrograma().set(linhaIndex, programa);
 		fireTableRowsUpdated(linhaIndex, linhaIndex);
 	}
 	
-	public void removePrograma(int linhaIndex) {
+	public void removeCliente(int linhaIndex) {
 		this.getListaPrograma().remove(linhaIndex);
 		fireTableRowsDeleted(linhaIndex, linhaIndex);
 	}
 	
-	public void removeTodosPrograma() {
+	public void removeTodosClientes() {
 		this.getListaPrograma().clear();
 	}
 		
@@ -63,6 +62,7 @@ public class TabelaProgramaM extends AbstractTableModel{
 	public int getRowCount() {
 		return this.getListaPrograma().size();
 	}
+
 
 	@Override
 	public Object getValueAt(int linhaIndex, int colunaIndex) {
