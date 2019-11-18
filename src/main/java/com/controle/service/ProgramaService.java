@@ -3,9 +3,10 @@ package com.controle.service;
 import java.util.List;
 
 import javax.persistence.EntityTransaction;
-
+import javax.swing.JOptionPane;
 
 import com.controle.model.ProgramaM;
+import com.controle.model.UsuarioM;
 import com.controle.repository.ProgramaRepository;
 
 
@@ -82,7 +83,16 @@ public class ProgramaService extends ConexaoBancoService {
 		return SUCESSO_TRANSACAO;
 	}
 	
-	
+	public ProgramaM consultarPrograma(Long id) {
+		ProgramaM programa=null;
+	try {
+		programa = ProgramaRepository.findById(id);
+        	JOptionPane.showMessageDialog(null, "Programa: " + programa.getNome() + " encontrado" );		
+	} catch(Throwable e) {
+		JOptionPane.showMessageDialog(null, "Programa não cadastrado! Erro: " + e);
+		}
+		return programa;
+	}
 	
 	public ProgramaM consultar(Long id) {
 		return ProgramaRepository.findById(id);

@@ -1,206 +1,137 @@
 package com.controle.main;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import com.controle.model.GerenciadorM;
+import com.controle.model.ProgramaM;
+import com.controle.model.TabelaGerenciadorM;
+import com.controle.model.TabelaUsuarioM;
+import com.controle.model.UsuarioM;
 import com.controle.service.GerenciadorService;
+import com.controle.service.ProgramaService;
+import com.controle.service.UsuarioService;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JPasswordField;
-import java.awt.List;
-import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class Gerenciador extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField nome_txt;
-	private JTextField bairro_txt;
-	private JTextField cep_txt;
-	private JTextField cidade_txt;
-	private JTextField numero_txt;
-	private JTextField telefone_txt;
 	private JTextField id_txt;
-	private JPasswordField senha_txt;
+	private JTextField id_programa;
+	private JTextField nome_programa;
+	private JTable tabelaUsuario;
+	private TabelaGerenciadorM tabelaUsuarioModel;
+	private int linhaSelecionada;
+	private int acao;
+	private JTextField id;
 
-	/**
-	 * Launch the application.
-	 */
-	protected GerenciadorM pegarDadosClienteFromTela(int op) {
-		GerenciadorM cliente = new GerenciadorM();
-		if (op == 1) {
-			cliente.setNome(nome_txt.getText());
-			cliente.setBairro(bairro_txt.getText());
-			//cliente.setCep(cep_txt.getText());
-			//cliente.setCidade(cidade_txt.getText());
-			//cliente.setNumero(numero_txt.getText());
-			//cliente.setTelefone(telefone_txt.getText());
-			//cliente.setSenha(senha_txt.getText());
-	        return cliente;		
-		}
-		else {
-			cliente.setId(Long.parseLong(id_txt.getText())); // converte para long
-			cliente.setNome(nome_txt.getText());
-			cliente.setBairro(bairro_txt.getText());
-			//cliente.setCep(cep_txt.getText());
-			//cliente.setCidade(cidade_txt.getText());
-			//cliente.setNumero(numero_txt.getText());
-			//cliente.setTelefone(telefone_txt.getText());
-			//cliente.setSenha(senha_txt.getText());
-	        return cliente;	
-		}
-		
+	
+	protected GerenciadorM pegarDadosClienteFromTela() {
+		GerenciadorM reg = new GerenciadorM();
+		reg.setNome(nome_txt.getText());
+		reg.setNome_id(id_txt.getText());
+		reg.setprograma(nome_programa.getText());
+		reg.setPrograma_id(id_programa.getText());
+		return reg;
+	}
+	protected GerenciadorM pegarDadosClienteFromTelas() {
+		GerenciadorM reg = new GerenciadorM();
+		reg.setId(Long.parseLong(id.getText()));
+		reg.setNome(nome_txt.getText());
+		reg.setNome_id(id_txt.getText());
+		reg.setprograma(nome_programa.getText());
+		reg.setPrograma_id(id_programa.getText());
+		return reg;
 	}
 	
 	protected void pegarDadosClienteFromTabela(GerenciadorM cliente) {
 		
-		id_txt.setText(Long.toString(cliente.getId()));
-		nome_txt.setText(cliente.getNome());
-		bairro_txt.setText(cliente.getBairro());
-		//cep_txt.setText(cliente.getCep());
-		//cidade_txt.setText(cliente.getCidade());
-		//numero_txt.setText(cliente.getNumero());
-		//telefone_txt.setText(cliente.getTelefone());
 	}
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Gerenciador frame = new Gerenciador();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
+protected void pegarDadosClienteFromTabela() {
+		
+		GerenciadorM reg = gettabelaUsuarioModel().getPrograma(getLinhaSelecionada());
+		id.setText(Long.toString(reg.getId()));
+		id_txt.setText(reg.getNome_id());
+		nome_txt.setText(reg.getNome());
+		id_programa.setText(reg.getPrograma_id());
+		nome_programa.setText(reg.getprograma());
+		
 	
-	/**
-	 * Create the frame.
-	 */
-	public Gerenciador() {
+	}
+	protected UsuarioM pegarid(){
+		UsuarioM usuario = new UsuarioM();
+		usuario.setId(Long.parseLong(id_txt.getText()));
+		return usuario;
+	}
+	protected ProgramaM pegarid_programa(){
+		ProgramaM programa = new ProgramaM();
+		programa.setId(Long.parseLong(id_programa.getText()));
+		return programa;
+	}
+	public Gerenciador(JFrame frame, JTable tabelaUsuario,
+            TabelaGerenciadorM tabelaUsuarioModel,
+            int linhaSelecionada,
+            int acao ) {
+		
+		this.tabelaUsuario = tabelaUsuario;
+		this.tabelaUsuarioModel = tabelaUsuarioModel;
+		this.linhaSelecionada = linhaSelecionada;
+		this.acao = acao;
+		
+		
 		setType(Type.UTILITY);
 		setResizable(false);
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 833, 514);
+		setBounds(100, 100, 528, 378);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		JButton Cadastrar = new JButton("Cadastrar");
-		Cadastrar.setBounds(33, 256, 89, 23);
+		Cadastrar.setBounds(145, 265, 89, 23);
 		Cadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GerenciadorService gerenciadorService = new GerenciadorService();
-				GerenciadorM cliente = pegarDadosClienteFromTela(1);
-				//GerenciadorService.alterarCLiente(cliente);
-					gerenciadorService.salvarGerenciador(cliente);
-					
-				
+				GerenciadorM reg = pegarDadosClienteFromTela();
+				gerenciadorService.salvarGerenciador(reg);
 			}
 		});
 		
+		
 		JLabel lblNomeDoUsurio = new JLabel("Nome do Usuário:");
-		lblNomeDoUsurio.setBounds(12, 12, 111, 17);
-		lblNomeDoUsurio.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNomeDoUsurio.setBounds(31, 91, 166, 39);
+		lblNomeDoUsurio.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		nome_txt = new JTextField();
-		nome_txt.setBounds(127, 12, 198, 20);
+		nome_txt.setEnabled(false);
+		nome_txt.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		nome_txt.setBounds(204, 94, 232, 33);
 		nome_txt.setColumns(10);
 		
-		JLabel lblBairro = new JLabel("Bairro:");
-		lblBairro.setBounds(82, 127, 41, 17);
-		lblBairro.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		bairro_txt = new JTextField();
-		bairro_txt.setBounds(127, 127, 96, 20);
-		bairro_txt.setColumns(10);
-		
-		JLabel lblCep = new JLabel("CEP:");
-		lblCep.setBounds(94, 155, 29, 17);
-		lblCep.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		cep_txt = new JTextField();
-		cep_txt.setBounds(127, 155, 96, 20);
-		cep_txt.setColumns(10);
-		
-		cidade_txt = new JTextField();
-		cidade_txt.setBounds(127, 99, 147, 20);
-		cidade_txt.setColumns(10);
-		
-		numero_txt = new JTextField();
-		numero_txt.setBounds(127, 183, 96, 20);
-		numero_txt.setColumns(10);
-		
-		telefone_txt = new JTextField();
-		telefone_txt.setBounds(127, 211, 96, 20);
-		telefone_txt.setColumns(10);
-		
-		JLabel lblCidade = new JLabel("Cidade:");
-		lblCidade.setBounds(77, 99, 46, 17);
-		lblCidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		JLabel lblNmero = new JLabel("Número:");
-		lblNmero.setBounds(69, 183, 54, 17);
-		lblNmero.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		JLabel lblTelefone = new JLabel("Telefone:");
-		lblTelefone.setBounds(66, 211, 57, 17);
-		lblTelefone.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
 		JLabel lblMatricula = new JLabel("Matricula:");
-		lblMatricula.setBounds(63, 43, 60, 17);
-		lblMatricula.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblMatricula.setBounds(97, 39, 80, 35);
+		lblMatricula.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		id_txt = new JTextField();
-		id_txt.setBounds(127, 43, 34, 20);
+		id_txt.setBounds(204, 42, 75, 33);
 		id_txt.setColumns(10);
-		
-		JLabel lblSenha = new JLabel("Senha:");
-		lblSenha.setBounds(81, 71, 43, 17);
-		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		contentPane.setLayout(null);
-		
-		senha_txt = new JPasswordField();
-		senha_txt.setBounds(127, 71, 96, 20);
-		contentPane.add(senha_txt);
 		contentPane.add(lblNomeDoUsurio);
 		contentPane.add(nome_txt);
 		contentPane.add(lblMatricula);
 		contentPane.add(id_txt);
-		contentPane.add(lblSenha);
-		contentPane.add(lblBairro);
-		contentPane.add(bairro_txt);
-		contentPane.add(lblTelefone);
-		contentPane.add(telefone_txt);
 		contentPane.add(Cadastrar);
-		contentPane.add(lblNmero);
-		contentPane.add(numero_txt);
-		contentPane.add(lblCidade);
-		contentPane.add(cidade_txt);
-		contentPane.add(lblCep);
-		contentPane.add(cep_txt);
-		
-		JButton atualizar = new JButton("Atualizar");
-		atualizar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GerenciadorService GerenciadorService = new GerenciadorService();
-				GerenciadorM cliente = pegarDadosClienteFromTela(0);
-				GerenciadorService.alterarGerenciador(cliente);
-			}
-		});
-		atualizar.setBounds(134, 256, 89, 23);
-		contentPane.add(atualizar);
 		
 		JButton btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
@@ -208,28 +139,113 @@ public class Gerenciador extends JFrame {
 				dispose();
 			}
 		});
-		btnSair.setBounds(236, 256, 89, 23);
+		btnSair.setBounds(389, 265, 89, 23);
 		contentPane.add(btnSair);
 		
-		List list = new List();
-		list.setBounds(237, 127, 110, 60);
-		contentPane.add(list);
-		
-		JButton btnNewButton = new JButton("EXCLUIR");
+		JButton btnNewButton = new JButton("Buscar");
 		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UsuarioService usuarioService = new UsuarioService();
+				UsuarioM usuario = pegarid();
+				usuario = usuarioService.consultarCliente(Long.valueOf(usuario.getId()));
+				nome_txt.setText(usuario.getNome());
+			}
+		});
+		btnNewButton.setBounds(356, 39, 80, 39);
+		contentPane.add(btnNewButton);
+		
+		JLabel lblNomeDoPrograma = new JLabel("Nome do Programa:");
+		lblNomeDoPrograma.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNomeDoPrograma.setBounds(12, 191, 166, 39);
+		contentPane.add(lblNomeDoPrograma);
+		
+		JLabel lblNumeroPrograma = new JLabel("Número Programa:");
+		lblNumeroPrograma.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNumeroPrograma.setBounds(28, 143, 149, 35);
+		contentPane.add(lblNumeroPrograma);
+		
+		id_programa = new JTextField();
+		id_programa.setColumns(10);
+		id_programa.setBounds(202, 144, 75, 33);
+		contentPane.add(id_programa);
+		
+		nome_programa = new JTextField();
+		nome_programa.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		nome_programa.setEnabled(false);
+		nome_programa.setColumns(10);
+		nome_programa.setBounds(204, 192, 232, 33);
+		contentPane.add(nome_programa);
+		
+		JButton button = new JButton("Buscar");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ProgramaService programaService = new ProgramaService();
+				ProgramaM programa = pegarid_programa();
+				programa = programaService.consultarPrograma(Long.valueOf(programa.getId()));
+				nome_programa.setText(programa.getNome());
+			}
+		});
+		button.setBounds(356, 140, 80, 39);
+		contentPane.add(button);
+		
+		JButton atualizar = new JButton("atualizar");
+		atualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GerenciadorService gerenciadorService = new GerenciadorService();
 				
-				gerenciadorService.remove(Long.parseLong(id_txt.getText()));	
+				GerenciadorM reg = pegarDadosClienteFromTelas();
+				gerenciadorService.alterarGerenciador(reg);
+				
 			}
 		});
-		btnNewButton.setBounds(43, 295, 89, 23);
-		contentPane.add(btnNewButton);
+		atualizar.setBounds(97, 265, 89, 23);
+		contentPane.add(atualizar);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(353, 148, 462, 286);
-		contentPane.add(scrollPane);
+		id = new JTextField();
+		id.setBounds(12, 13, 38, 22);
+		contentPane.add(id);
+		id.setColumns(10);
 		setLocationRelativeTo(null);
+		if ( getAcao() == 1 ) {
+			Cadastrar.setEnabled(false);
+			atualizar.setEnabled(true);
+			pegarDadosClienteFromTabela();
+		}
+		else if( getAcao() == 0 ){
+			atualizar.setEnabled(false);
+			Cadastrar.setEnabled(true);
+		}
 		
+	}
+	public JTable gettabelaGerenciador() {
+		return tabelaUsuario;
+	}
+
+	public void settabelaGerenciador(JTable tabelaUsuario) {
+		this.tabelaUsuario = tabelaUsuario;
+	}
+
+	public TabelaGerenciadorM gettabelaUsuarioModel() {
+		return tabelaUsuarioModel;
+	}
+
+	public void settabelaGerenciadorModel(TabelaGerenciadorM tabelaUsuarioModel) {
+		this.tabelaUsuarioModel = tabelaUsuarioModel;
+	}
+
+	public int getLinhaSelecionada() {
+		return linhaSelecionada;
+	}
+
+	public void setLinhaSelecionada(int linhaSelecionada) {
+		this.linhaSelecionada = linhaSelecionada;
+	}
+
+	public int getAcao() {
+		return acao;
+	}
+
+	public void setAcao(int acao) {
+		this.acao = acao;
 	}
 }

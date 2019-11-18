@@ -47,9 +47,7 @@ public class Programa extends JFrame {
 			this.tabelaProgramaModelo = tabelaProgramaModelo;
 			this.linhaSelecionada = linhaSelecionada;
 			this.acao = acao;
-			System.out.println("programa 2 :" + linhaSelecionada + "+" + tabelaPrograma + "+" + tabelaProgramaModelo);	
-			System.out.println(gettabelaPrograM().getPrograma(getLinhaSelecionada()));
-			System.out.println(acao);
+			
 initComponents();
 
 createEvents();

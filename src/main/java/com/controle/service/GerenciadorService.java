@@ -1,5 +1,7 @@
 package com.controle.service;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -8,6 +10,7 @@ import javax.swing.JOptionPane;
 
 
 import com.controle.model.GerenciadorM;
+
 import com.controle.model.UsuarioM;
 import com.controle.repository.GerenciadorRepository;
 
@@ -121,6 +124,28 @@ public class GerenciadorService extends ConexaoBancoService {
 			}
 			return gerenciador;
 		}
+	 
+	 public GerenciadorM consultar(Long id) {
+			return GerenciadorRepository.findById(id);
+		}
+		public List<GerenciadorM> listarTodosProgramas(){
+			return GerenciadorRepository.findAll(GerenciadorM.class);
+		}
+		public GerenciadorM consultarSenha(Long id) {
+			
+			return GerenciadorRepository.findById(id);
+		}
+		public List<GerenciadorM> listarTodosClientes(){
+			return GerenciadorRepository.findAll(GerenciadorM.class);
+		}
+
+		public Integer calcularTotalRegistros() {
+			return GerenciadorRepository.calcularTotalRegistros(GerenciadorM.class);
+		}
 		
+		
+		public List<GerenciadorM> listarTodosRegistrosComPaginacao(Integer primeiro, Integer tamanhoPagina){
+		    return GerenciadorRepository.listarTodosRegistrosComPaginacao(primeiro, tamanhoPagina);
+		}
 
 }

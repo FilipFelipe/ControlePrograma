@@ -57,7 +57,7 @@ public class Usuario extends JFrame {
 			this.tabelaUsuarioModel = tabelaUsuarioModel;
 			this.linhaSelecionada = linhaSelecionada;
 			this.acao = acao;
-			System.out.println(gettabelaUsuarioModel().getUsuario(getLinhaSelecionada()));
+			
 			
 initComponents();
 
@@ -178,9 +178,6 @@ configurarAcao();
 	
 	protected void pegarDadosClienteFromTabela() {
 		
-		System.out.println(gettabelaUsuarioModel());
-		
-		System.out.println(gettabelaUsuarioModel().getUsuario(getLinhaSelecionada()));
 		UsuarioM usuario = gettabelaUsuarioModel().getUsuario(getLinhaSelecionada());
 		System.out.println(Long.toString(usuario.getId()));
 		id_txt.setText(Long.toString(usuario.getId()));
@@ -353,7 +350,6 @@ configurarAcao();
 				{ UsuarioService usuarioService = new UsuarioService();
 				UsuarioM usuario = pegarDadosClienteFromTela(0);
 				usuario = usuarioService.consultarCliente(Long.valueOf(usuario.getId()));
-				//pegarDadosClienteFromTabela(usuario);
 				btnSalvar.setVisible(false);
 				btnExcluir.setEnabled(true);
 				btnatt_1.setVisible(true);

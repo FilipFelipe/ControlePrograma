@@ -99,10 +99,9 @@ public class Main extends JFrame {
 		contentPane.add(btnSair);
 		
 		JButton btnGerenciador = new JButton("Gerenciador");
-		btnGerenciador.setEnabled(false);
 		btnGerenciador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Gerenciador admin = new Gerenciador(); 
+				TabelaGerenciador admin = new TabelaGerenciador(); 
 				//dispose();
 				admin.setVisible(true); 
 			}
