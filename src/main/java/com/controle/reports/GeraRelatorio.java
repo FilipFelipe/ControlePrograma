@@ -1,4 +1,4 @@
-package com.exemplo.reports;
+package com.controle.reports;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -8,6 +8,11 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.controle.persistencia.DataSource;
+
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.swing.JRViewer;
 
 
 public class GeraRelatorio extends JFrame{
@@ -38,6 +43,8 @@ public class GeraRelatorio extends JFrame{
 	}
 	
 	
+	
+
 	public void configureFrame() {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setExtendedState(MAXIMIZED_BOTH);
@@ -45,16 +52,36 @@ public class GeraRelatorio extends JFrame{
 	}
 	
 	
+	public void callReport() {
+        JasperPrint jasperPrint = generateReport();
+        JRViewer viewer = new JRViewer(jasperPrint);
+        getContentPane().add(viewer);
+        setVisible(true);
+    }
+	
+	public JasperPrint generateReport() {
+        try {
+        	 JasperPrint jasperPrint = null;
+             jasperPrint = JasperFillManager.fillReport(this.getNomeArquivo(), getParams(), new JRBeanCollectionDataSource(this.getCollection()));
+             return jasperPrint;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+ 
+    }
+	
+	
 	public void generateReports() {
 	
 		DataSource dataSource = new DataSource();
 		if (dataSource.conexaoBanco() != null) {
 			try {
-				//JasperPrint print = JasperFillManager.fillReport(this.getNomeArquivo(),
-																 //this.getParams(), 
-																 //dataSource.conexaoBanco());
-				//JRViewer viewer = new JRViewer(print);
-	            //getContentPane().add(viewer);
+				JasperPrint print = JasperFillManager.fillReport(this.getNomeArquivo(),
+																 this.getParams(), 
+																 dataSource.conexaoBanco());
+				JRViewer viewer = new JRViewer(print);
+	            getContentPane().add(viewer);
 	            setVisible(true);
 			}catch(Exception e) {
 				e.printStackTrace();

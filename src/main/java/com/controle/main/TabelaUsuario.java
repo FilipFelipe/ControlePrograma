@@ -1,22 +1,23 @@
 package com.controle.main;
 
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.PatternSyntaxException;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.TableRowSorter;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.GroupLayout;
-import javax.swing.ImageIcon;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -24,18 +25,17 @@ import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.UIManager;
-import com.controle.model.UsuarioM;
-import com.controle.model.TabelaUsuarioM;
-import com.controle.service.UsuarioService;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableRowSorter;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.Font;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import com.controle.model.TabelaUsuarioM;
+import com.controle.model.UsuarioM;
+import com.controle.reports.GeraRelatorio;
+import com.controle.service.UsuarioService;
+
+
+import net.sf.jasperreports.engine.JRParameter;
 
 public class TabelaUsuario extends JFrame {
 
@@ -168,11 +168,11 @@ public class TabelaUsuario extends JFrame {
 		});
 		btnRelatorio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-		     	//String nomeArquivo = "relatorio_cliente";
-				//Map<String, Object> params = new HashMap<String, Object>();
-				//params.put(JRParameter.REPORT_LOCALE, new Locale("pt","BR"));
-				//GeraRelatorio geraRelatorio = new GeraRelatorio(nomeArquivo, params);
-				//geraRelatorio.generateReports();
+				String nomeArquivo = "tabela_usuario";
+				Map<String, Object> params = new HashMap<String, Object>();
+				params.put(JRParameter.REPORT_LOCALE, new Locale("pt","BR"));
+				GeraRelatorio geraRelatorio = new GeraRelatorio(nomeArquivo, params);
+				geraRelatorio.generateReports();
 			}
 		});
 	}

@@ -1,7 +1,10 @@
 package com.controle.main;
 
 import java.awt.EventQueue;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.regex.PatternSyntaxException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,7 +24,11 @@ import javax.swing.UIManager;
 
 import com.controle.model.ProgramaM;
 import com.controle.model.TabelaProgramaM;
+import com.controle.reports.GeraRelatorio;
 import com.controle.service.ProgramaService;
+
+import net.sf.jasperreports.engine.JRParameter;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
@@ -161,11 +168,11 @@ public class TabelaPrograma extends JFrame {
 		});
 		btnRelatorio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-		     	//String nomeArquivo = "relatorio_cliente";
-				//Map<String, Object> params = new HashMap<String, Object>();
-				//params.put(JRParameter.REPORT_LOCALE, new Locale("pt","BR"));
-				//GeraRelatorio geraRelatorio = new GeraRelatorio(nomeArquivo, params);
-				//geraRelatorio.generateReports();
+		     	String nomeArquivo = "tabela_programa";
+				Map<String, Object> params = new HashMap<String, Object>();
+				params.put(JRParameter.REPORT_LOCALE, new Locale("pt","BR"));
+				GeraRelatorio geraRelatorio = new GeraRelatorio(nomeArquivo, params);
+				geraRelatorio.generateReports();
 			}
 		});
 	}

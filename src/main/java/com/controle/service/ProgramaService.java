@@ -6,7 +6,6 @@ import javax.persistence.EntityTransaction;
 import javax.swing.JOptionPane;
 
 import com.controle.model.ProgramaM;
-import com.controle.model.UsuarioM;
 import com.controle.repository.ProgramaRepository;
 
 

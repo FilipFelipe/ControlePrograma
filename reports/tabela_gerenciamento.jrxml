@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tabela_gerenciamento" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ca9ba23c-9747-4ec7-9f82-5ee08ec96781">
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[Y29udHJvbGUudGFiX2dlcmVuY2lhZG9yIEFTICwxMTgsOTgsNzdjM2UzZDgtNDc0OC00MzI4LWFj
+YWYtZGM3NTQzMDZlZTFiOw==]]>
+	</property>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Banco"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT controle.tab_gerenciador.`GERENCIADOR_ID`,
+	controle.tab_gerenciador.`NOME`,
+	controle.tab_gerenciador.`PROGRAMA`,
+	controle.tab_gerenciador.`NOME_ID`,
+	controle.tab_gerenciador.`PROGRAMA_ID`
+FROM controle.tab_gerenciador]]>
+	</queryString>
+	<field name="GERENCIADOR_ID" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="GERENCIADOR_ID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tab_gerenciador"/>
+	</field>
+	<field name="NOME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NOME"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tab_gerenciador"/>
+	</field>
+	<field name="PROGRAMA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PROGRAMA"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tab_gerenciador"/>
+	</field>
+	<field name="NOME_ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NOME_ID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tab_gerenciador"/>
+	</field>
+	<field name="PROGRAMA_ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PROGRAMA_ID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tab_gerenciador"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="-10" y="10" width="360" height="30" uuid="12635526-78a0-4afa-9940-b582e4d4dbe2"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Relatório do gerenciamento do Sistema]]></text>
+			</staticText>
+			<image>
+				<reportElement x="350" y="0" width="210" height="80" uuid="f913adac-d87f-4da2-b7d5-c52471ce618e"/>
+				<imageExpression><![CDATA["D:/2-Downloads/customLogo.gif.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="34a922d4-570f-4b32-83b0-c3e8895eee1d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cf7e797d-e107-4af7-8750-f1ad1a475cd7"/>
+				</reportElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="1" width="100" height="20" uuid="a9c2e18d-5a9e-4596-9f3d-722b90b40997">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c52d28ad-982c-46c5-8923-eea11b73c9f7"/>
+				</reportElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="383" y="1" width="98" height="20" uuid="b835b1a3-5449-49e1-98db-fb1144ac1677">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ae6d7b16-7f5d-4137-b02e-a6045854b5c7"/>
+				</reportElement>
+				<text><![CDATA[Programa]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="20" width="525" height="1" uuid="6b09fbb1-6732-42bc-80c5-b7bfb7182dcb"/>
+			</rectangle>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="19067213-c8f3-427d-a4a3-e93aee19d584">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cf7e797d-e107-4af7-8750-f1ad1a475cd7"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{GERENCIADOR_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="1" width="100" height="20" uuid="aa7c0339-0fcb-44c7-8d51-4fbc183562d5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c52d28ad-982c-46c5-8923-eea11b73c9f7"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="383" y="1" width="95" height="20" uuid="8e14ec7e-3b53-43cb-8605-39bd8225518e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ae6d7b16-7f5d-4137-b02e-a6045854b5c7"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{PROGRAMA}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="20" width="525" height="1" uuid="c83d170b-3230-4ae2-b456-fa845da8df18"/>
+			</rectangle>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="110" y="30" width="160" height="20" uuid="5ea2f43e-5980-4f78-a135-f5cc95136948"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="270" y="30" width="150" height="20" uuid="21b700b9-61da-414e-9e1f-0a77341fb658"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="481" y="30" width="94" height="20" uuid="efb86142-13a0-4061-a58a-a966102f6c0c"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
