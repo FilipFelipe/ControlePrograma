@@ -17,6 +17,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTable;
 
@@ -99,7 +101,7 @@ protected void pegarDadosClienteFromTabela() {
 		setContentPane(contentPane);
 		
 		JButton Cadastrar = new JButton("Cadastrar");
-		Cadastrar.setBounds(145, 265, 89, 23);
+		Cadastrar.setBounds(190, 265, 89, 23);
 		Cadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GerenciadorService gerenciadorService = new GerenciadorService();
@@ -195,13 +197,15 @@ protected void pegarDadosClienteFromTabela() {
 				
 				GerenciadorM reg = pegarDadosClienteFromTelas();
 				gerenciadorService.alterarGerenciador(reg);
-				
+				JOptionPane.showMessageDialog(null, "O Gerenciador foi atualizado com sucesso!");
+				dispose();
 			}
 		});
-		atualizar.setBounds(97, 265, 89, 23);
+		atualizar.setBounds(62, 265, 89, 23);
 		contentPane.add(atualizar);
 		
 		id = new JTextField();
+		id.setVisible(false);
 		id.setBounds(12, 13, 38, 22);
 		contentPane.add(id);
 		id.setColumns(10);
